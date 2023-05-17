@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart Page</title>
+</head>
+<header>
+    <h1>Cart</h1>
+    <a href="{% url 'index' %}"><button type="submit" >Home</button></a>
+    <hr>
+</header>
+<body>
+    <div>
+        {% for i in cart_list %}
+            <h1>{{ i.cart_item.name }}</h1>
+            <img src="{{ i.cart_item.img.url }}" width="300" alt="">
+            <p>{{ i.cart_item.price }}</p>
+            <form action="{% url 'delete_item' %}" method="post">
+                {% csrf_token %}
+                <button type="submit" name="id" value="{{ i.id }}" >Delete</button>
+            </form>
+            <hr>
+        {% endfor %}
+        <h1>Sum = {{ summ }}</h1>
+    </div>
+</body>
+</html>

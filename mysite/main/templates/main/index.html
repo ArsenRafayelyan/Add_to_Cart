@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+</head>
+<header>
+    <h1>Products</h1>
+    <a href="{% url 'cart' %}"><button >Cart</button>({{ cart_list | length }})</a>
+    <hr>
+</header>
+<body>
+    <div>
+        {% for i in product_list %}
+            <h4>{{ i.name }}</h4>
+            <img src="{{ i.img.url }}" width="300" alt="">
+            <p>{{ i.price }}</p>
+            <form action="{% url 'cart' %}" method="post">
+                {% csrf_token %}
+                <button type="submit" name="id" value="{{i.id}}">Add to cart</button>
+            </form>
+        {% endfor %}
+    </div>
+</body>
+</html>
